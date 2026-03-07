@@ -33,7 +33,18 @@ mcp-multidb-python/
 ├── connections.json.example
 ├── pyproject.toml
 ├── requirements.txt
-└── 项目文档/           # 详细说明与引用方式
+├── scripts/           # 测试脚本（如 scripts/test_connection.py）
+└── 项目文档/           # 说明与引用方式
+    ├── MCP与工具配置/
+    │   ├── 其他项目如何引用本MCP.md
+    │   ├── 连接测试说明.md
+    │   ├── 推送到GitHub步骤.md
+    │   └── skill-for-callers/        # 给引用方拷贝的 Cursor Skill
+    │       ├── README.md
+    │       └── multidb-sql-analysis/
+    │           └── SKILL.md
+    └── 项目分析/
+        └── mcp-multidb-python 项目分析.md
 ```
 
 ---
@@ -145,9 +156,18 @@ mcp-multidb-python
 
 所有查询均为只读，不执行写操作。
 
+### 给引用方用的 Cursor Skill（拷贝即用）
+
+已配置本 MCP 的项目，可从本仓库拷贝现成 Skill，在分析涉及数据库/SQL 的代码时让 Agent 自动调用本 MCP 做数据库调用分析：
+
+- **拷贝**：将 **`项目文档/MCP与工具配置/skill-for-callers/multidb-sql-analysis`** 整个文件夹拷贝到你的项目的 **`.cursor/skills/`** 下。
+- **说明**：[skill-for-callers/README.md](项目文档/MCP与工具配置/skill-for-callers/README.md)
+
 ---
 
 ## 在 Cursor 等客户端中使用
+
+推荐使用 **run.sh / run.bat**（零安装），将 `/path/to/mcp-multidb-python` 换成你本机上的本仓库路径。
 
 ### 使用本仓库默认配置
 
@@ -157,13 +177,15 @@ mcp-multidb-python
 {
   "mcpServers": {
     "multidb-python": {
-      "command": "/path/to/mcp-multidb-python/.venv/bin/python",
-      "args": ["-m", "mcp_multidb.main"],
+      "command": "/path/to/mcp-multidb-python/run.sh",
+      "args": [],
       "cwd": "/path/to/mcp-multidb-python"
     }
   }
 }
 ```
+
+Windows 下可将 `run.sh` 改为 `run.bat` 的绝对路径。
 
 ### 使用项目自有连接配置（推荐）
 
@@ -173,8 +195,8 @@ mcp-multidb-python
 {
   "mcpServers": {
     "multidb-python": {
-      "command": "/path/to/mcp-multidb-python/.venv/bin/python",
-      "args": ["-m", "mcp_multidb.main"],
+      "command": "/path/to/mcp-multidb-python/run.sh",
+      "args": [],
       "cwd": "/path/to/mcp-multidb-python",
       "env": {
         "MULTIDB_CONFIG_PATH": "/path/to/your-project/.cursor/multidb-connections.json"
@@ -184,14 +206,19 @@ mcp-multidb-python
 }
 ```
 
-将上述配置写在**该项目**的 `.cursor/mcp.json` 中，并将该项目的连接文件加入 `.gitignore`，避免密码入库。
+将上述配置写在**该项目**的 `.cursor/mcp.json` 中，连接文件加入 `.gitignore`，避免密码入库。
 
 ---
 
 ## 文档
 
-- [其他项目如何引用本 MCP](项目文档/MCP与工具配置/其他项目如何引用本MCP.md)（全局/工作区、Claude Desktop、作为 Python 依赖等）
-- [连接测试说明](项目文档/MCP与工具配置/连接测试说明.md)（通过 MCP 工具验证连接、lib/ 驱动说明）
+| 文档 | 说明 |
+|------|------|
+| [其他项目如何引用本 MCP](项目文档/MCP与工具配置/其他项目如何引用本MCP.md) | 全局/工作区配置、Claude Desktop、零安装与 Python 依赖 |
+| [skill-for-callers 使用说明](项目文档/MCP与工具配置/skill-for-callers/README.md) | 引用方拷贝 Skill 到 `.cursor/skills/` 的步骤 |
+| [连接测试说明](项目文档/MCP与工具配置/连接测试说明.md) | 用 MCP 工具验证连接、lib/ 驱动 |
+| [推送到 GitHub 步骤](项目文档/MCP与工具配置/推送到GitHub步骤.md) | 本地提交后推送到 GitHub |
+| [项目分析](项目文档/项目分析/mcp-multidb-python%20项目分析.md) | 项目结构与模块说明 |
 
 ---
 
