@@ -1,0 +1,7 @@
+{
+  "bjgzfl": {
+    "url": "jdbc:oracle:thin:@//192.168.22.250:1521/bjgzfl",
+    "user": "ccrs_mid1",
+    "password": "YOUR_PASSWORD"
+  }
+}

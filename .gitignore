@@ -1,0 +1,10 @@
+__pycache__/
+*.py[cod]
+.eggs/
+dist/
+build/
+*.egg-info/
+.venv/
+venv/
+connections.json
+lib/*.jar

@@ -1,0 +1,19 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "mcp-multidb-python"
+version = "1.0.0"
+description = "MCP server for multi-database query via JDBC (Python + JPype). Put driver jars in lib/."
+readme = "README.md"
+requires-python = ">=3.8"
+dependencies = [
+    "jpype1>=1.4.0,<1.6",
+]
+
+[project.scripts]
+mcp-multidb-python = "mcp_multidb.main:run"
+
+[tool.setuptools.packages.find]
+where = ["src"]
